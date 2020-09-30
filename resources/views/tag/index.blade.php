@@ -14,11 +14,12 @@
                                     <h2 class="d-inline"><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></h2>
                                     <a class="btn btn-light btn-sm ml-2" href="/tag/{{ $tag->id }}/edit"><i
                                             class="fas fa-edit"></i>Edit Tag</a>
-                                    <form class="float-right" style="display: inline" action="/tag/{{ $tag->id }}" method="post">
+                                    <form class="float-right d-inline" action="/tag/{{ $tag->id }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input class="btn btn-sm btn-outline-danger" type="submit" value="Delete">
                                     </form>
+                                    <a class="float-right mx-2" href="/hobby/tag/{{ $tag->id }}">Used {{ $tag->hobbies->count() }} times</a>
                                 </li>
                             @endforeach
                         </ul>

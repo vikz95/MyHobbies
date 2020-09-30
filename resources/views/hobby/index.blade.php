@@ -5,8 +5,11 @@
         <div class="row justify-content-center">
             <div class="col-md-11">
                 <div class="card">
-                    <div class="card-header">All the hobbies</div>
-
+                    @isset($filter)
+                        <div class="card-header">All the <span class="badge badge-{{ $filter->style }}">{{ $filter->name }}</span> hobbies</div>
+                    @else
+                        <div class="card-header">All the hobbies</div>
+                    @endisset
                     <div class="card-body">
                         <ul class="list-group">
                             @foreach($hobbies as $hobby)
@@ -16,7 +19,7 @@
                                     <a class="btn btn-light btn-sm ml-2" href="/hobby/{{ $hobby->id }}/edit"><i
                                             class="fas fa-edit"></i>Edit Hobby</a>
                                     @endauth
-                                    <span class="mx-2">Posted by: {{ $hobby->user->name }} ({{ $hobby->user->hobbies->count() }} Hobbies)</span>
+                                    <span class="mx-2">Posted by: <a href="/user/{{ $hobby->user->id }}">{{ $hobby->user->name }}</a> ({{ $hobby->user->hobbies->count() }} Hobbies)</span>
                                     @auth
                                     <form class="float-right d-inline" action="/hobby/{{ $hobby->id }}" method="post">
                                         @csrf
@@ -27,7 +30,7 @@
                                     <span class="float-right mx-2">{{ $hobby->created_at->diffForHumans() }}</span>
                                     <br>
                                     @foreach($hobby->tags as $tag)
-                                        <a href=""><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></a>
+                                        <a href="/hobby/tag/{{ $tag->id }}"><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></a>
                                     @endforeach
                                 </li>
                             @endforeach

@@ -10,9 +10,16 @@
                     <div class="card-body">
                         <b>{{ $hobby->name }}</b>
                         <p>{{ $hobby->description }}</p>
+                        <b>Used Tags:</b> (Click to remove)
                         <p>
                             @foreach($hobby->tags as $tag)
-                                <a href=""><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></a>
+                                <a href="/hobby/{{ $hobby->id }}/tag/{{ $tag->id }}/detach"><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></a>
+                            @endforeach
+                        </p>
+                        <b>Available Tags:</b> (Click to add)
+                        <p>
+                            @foreach($availableTags as $tag)
+                                <a href="/hobby/{{ $hobby->id }}/tag/{{ $tag->id }}/attach"><span class="badge badge-{{ $tag->style }}">{{ $tag->name }}</span></a>
                             @endforeach
                         </p>
                     </div>

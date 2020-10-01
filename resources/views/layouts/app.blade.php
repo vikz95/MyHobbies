@@ -42,7 +42,7 @@
                     @endguest
                     @auth
                         <li>
-                            <a class="nav-link{{Request::is('/home') ? ' active' : ''}}" href="/">Home</a>
+                            <a class="nav-link{{Request::is('/home') ? ' active' : ''}}" href="/home">Home</a>
                         </li>
                     @endauth
                     <li>

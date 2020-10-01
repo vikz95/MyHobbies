@@ -24,9 +24,7 @@ Route::get('/info', function () {
 //Route::get('/test/{name}/{age}', 'HobbyController@index');
 
 Route::resource('hobby', 'HobbyController');
-
 Route::resource('tag', 'TagController');
-
 Route::resource('user', 'UserController');
 
 Auth::routes();
@@ -37,3 +35,6 @@ Route::get('/hobby/tag/{tag_id}', 'HobbyTagController@getFilteredHobbies')->name
 
 Route::get('/hobby/{hobby_id}/tag/{tag_id}/attach', 'HobbyTagController@attachTag');
 Route::get('/hobby/{hobby_id}/tag/{tag_id}/detach', 'HobbyTagController@detachTag');
+
+Route::get('/hobby/{hobby_id}/delete-images', 'HobbyController@deleteImages');
+Route::get('/user/{user_id}/delete-images', 'UserController@deleteImages');

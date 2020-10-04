@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -61,6 +67,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        abort_unless(Gate::allows('update', $user), 403);
         return view('user.edit')->with([
             'user' => $user,
             'message_success' => Session::get('message_success'),
@@ -77,6 +84,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        abort_unless(Gate::allows('update', $user), 403);
+
         $request->validate([
             'motto' => 'required|min:3',
             'image' => 'mimes:jpeg,jpg,bmp,png,gif'
@@ -106,7 +115,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        abort_unless(Gate::allows('delete', $user), 403);
     }
 
     public function saveImages($imageInput, $user_id){
